@@ -1,0 +1,18 @@
+//@version=4
+strategy("Buy on Green and Sell on Red", overlay=true)
+
+// Heikin Ashi Candles
+ha_open = (open + close[1]) / 2
+ha_close = (open + high + low + close) / 4
+ha_high = max(high, max(ha_open, ha_close))
+ha_low = min(low, min(ha_open, ha_close))
+
+// Buy and Sell Conditions
+buy_signal = ha_close > ha_open and ha_close[1] <= ha_open[1]
+sell_signal = ha_close < ha_open
+
+// Enter and Exit Trades
+if buy_signal
+    strategy.entry("Buy", strategy.long)
+if sell_signal
+    strategy.close("Buy")
