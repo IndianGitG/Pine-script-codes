@@ -1,0 +1,18 @@
+//@version=4
+study(title="Average Candle Size of Last 200 Candles", shorttitle="AvgCandleSize200", overlay=true)
+
+// Calculate the size of each candle (high - low)
+candleSize = high - low
+
+// Calculate the average size of the last 200 candles
+avgCandleSize200 = sma(candleSize, 200)
+
+// Plot the average candle size as a line (if needed)
+plot(avgCandleSize200, color=color.green, title="Avg Candle Size 200", linewidth=2)
+
+// Display the average candle size as a label on the chart
+label.new(x=bar_index, y=lowest(200) - avgCandleSize200 * 1.1, 
+          text="Avg Size: " + tostring(avgCandleSize200), 
+          color=color.green, 
+          style=label.style_labeldown, 
+          size=size.small)
